@@ -1,19 +1,16 @@
-package com.travelGuide.GuideWeb.Entity;
+package com.travelGuide.GuideWeb.DTO;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
-@Entity
-@Component
+
 @Data
-public class UserEntity {
-    @Id()
-    private Long id;
+@Component
+public class UserDto {
     private String name;
     private String email;
     private String address;
     private String phone;
     private String gender;
+
 }
