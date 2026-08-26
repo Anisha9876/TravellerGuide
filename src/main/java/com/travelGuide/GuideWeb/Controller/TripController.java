@@ -57,5 +57,23 @@ public class TripController {
         return ResponseEntity.ok("Successfully deleted ");
 
     }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<TripDto> updateTrip(@PathVariable Long id, @RequestBody TripDto tripDto){
+        TripEntity tripUpdated = service.updateTripById(id, tripDto);
+        
+        return ResponseEntity.ok().body(mapper.tripEntityToTripDto(tripUpdated));
+    }
+
+    @GetMapping("/search")
+    public List<TripEntity> searchFilters(
+            @RequestParam(required = false) String destination,
+            @RequestParam(required = false) String maxPrice,
+            @RequestParam(required = false) String travelType,
+            @RequestParam(required = false) String minPrice
+
+    ){
+        return service.getSearchFilters(destination,maxPrice,minPrice,travelType);
+
+    }
 
 }
