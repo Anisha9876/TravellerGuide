@@ -15,7 +15,8 @@ public class AuthService {
      SecurityConfig config;
      @Autowired
      UserRepository repository;
-
+     @Autowired
+     JwtService jwtService;
 
      public void registration(UserDto dto) {
          UserEntity userEntity = new UserEntity();
@@ -40,6 +41,7 @@ public class AuthService {
        if( !config.passwordEncoder().matches(dto.getPassword(), user.getPassword())){
            return "Incorrect username/Password";
        }
-        return "Login successfully";
+        String token = jwtService.generateToken(email);
+        return token;
     }
 }
