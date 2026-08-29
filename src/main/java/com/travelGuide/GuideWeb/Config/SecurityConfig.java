@@ -2,6 +2,7 @@ package com.travelGuide.GuideWeb.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -34,6 +35,10 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**","/user/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/trip/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/trip/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT,"/trip/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE,"/trip/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
 

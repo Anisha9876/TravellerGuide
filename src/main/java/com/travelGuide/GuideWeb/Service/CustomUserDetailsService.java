@@ -23,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                    return User
                     .withUsername(user.getEmail())
                     .password(user.getPassword())
-                    .authorities(String.valueOf(user.getRole()))
+                           .roles(String.valueOf(user.getRole()))
                     .build();
         }
         throw new UsernameNotFoundException("User not found with email: " + username);
