@@ -3,7 +3,6 @@ package com.travelGuide.GuideWeb.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,9 +16,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
+
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter){
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter,OAuth2SuccessHandler oAuth2SuccessHandler){
         this.jwtAuthenticationFilter=jwtAuthenticationFilter;
+        this.oAuth2SuccessHandler=oAuth2SuccessHandler;
     }
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -41,11 +43,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT,"/trip/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE,"/trip/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
-                ).oauth2Login(Customizer.withDefaults())
+                ).oauth2Login(oauth -> oauth
+                .successHandler(oAuth2SuccessHandler))
 
                 .sessionManagement(
                         session->session
-                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 
                 );
 
