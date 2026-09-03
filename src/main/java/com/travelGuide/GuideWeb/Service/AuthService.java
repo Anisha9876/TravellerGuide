@@ -34,7 +34,7 @@ public class AuthService {
 
     public String login(LoginDto dto){
         String email = dto.getEmail();
-        UserEntity user = repository.findByEmail(email);
+        UserEntity user = repository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found: " + email));
         if(user ==null){
             return "User not exists plz register again";
         }

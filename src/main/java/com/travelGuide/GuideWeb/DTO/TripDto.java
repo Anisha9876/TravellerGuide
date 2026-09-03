@@ -15,5 +15,6 @@ public class TripDto {
         private String travelType;
         private String destination;
         private String duration;
+        private int availableSit;
 
 }

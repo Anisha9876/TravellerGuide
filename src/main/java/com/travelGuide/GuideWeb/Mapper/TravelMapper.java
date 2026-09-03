@@ -7,13 +7,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TravelMapper {
-    @Autowired
-    TripDto tripDto;
-    @Autowired
-    TripEntity tripEntity;
-
 
     public TripDto tripEntityToTripDto(TripEntity tripEntity){
+        TripDto tripDto = new TripDto();
         tripDto.setTripName(tripEntity.getTripName());
         tripDto.setDestination(tripEntity.getDestination());
         tripDto.setContact(tripEntity.getContact());
@@ -22,10 +18,12 @@ public class TravelMapper {
         tripDto.setTravelType(tripEntity.getTravelType());
         tripDto.setPickUp(tripEntity.getPickUp());
         tripDto.setDropLocation(tripEntity.getDropLocation());
+        tripDto.setAvailableSit(tripEntity.getAvailableSit());
         return tripDto;
 
     }
     public TripEntity tripDtoToTripEntity(TripDto tripDto){
+        TripEntity tripEntity=new TripEntity();
         tripEntity.setContact(tripDto.getContact());
         tripEntity.setDestination(tripDto.getDestination());
         tripEntity.setPrice(tripDto.getPrice());
@@ -34,6 +32,7 @@ public class TravelMapper {
         tripEntity.setTravelType(tripDto.getTravelType());
         tripEntity.setDropLocation(tripDto.getDropLocation());
         tripEntity.setPickUp(tripDto.getPickUp());
+        tripEntity.setAvailableSit(tripDto.getAvailableSit());
         return tripEntity;
     }
 }

@@ -1,12 +1,21 @@
 package com.travelGuide.GuideWeb.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.travelGuide.GuideWeb.Entity.Enum.Role;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class UserEntity {
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,4 +30,7 @@ public class UserEntity {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Booking> bookings=new ArrayList<>();
 }
