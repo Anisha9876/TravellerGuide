@@ -3,12 +3,10 @@ package com.travelGuide.GuideWeb.Controller;
 import com.travelGuide.GuideWeb.Entity.Booking;
 import com.travelGuide.GuideWeb.Service.BookingService;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/booking")
@@ -32,4 +30,11 @@ public class BookingController {
         return bookingService.bookTrip(tripId,email);
 
     }
+    @GetMapping("/my")
+    public List<Booking> getMyBookings(Authentication authentication){
+        String email = authentication.getName();
+        List<Booking> bookings = bookingService.getBookings(email);
+        return bookings;
+    }
+
 }

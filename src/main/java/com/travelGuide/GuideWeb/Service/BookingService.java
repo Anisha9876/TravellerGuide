@@ -9,6 +9,8 @@ import com.travelGuide.GuideWeb.Repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookingService {
     private final TripRepository tripRepository;
@@ -33,5 +35,12 @@ public class BookingService {
         booking.setUser(user);
         booking.setTotalPrice(trip.getPrice());
         return bookingRepository.save(booking);
+    }
+
+    public List<Booking> getBookings(String email) {
+        UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        return bookingRepository.findByUser(user);
+
+
     }
 }
