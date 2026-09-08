@@ -33,4 +33,8 @@ public class UserEntity {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Booking> bookings=new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Review> reviews = new ArrayList<>();
 }
