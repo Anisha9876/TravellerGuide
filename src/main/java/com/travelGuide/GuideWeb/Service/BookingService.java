@@ -1,6 +1,7 @@
 package com.travelGuide.GuideWeb.Service;
 
 import com.travelGuide.GuideWeb.Entity.Booking;
+import com.travelGuide.GuideWeb.Entity.Enum.Status;
 import com.travelGuide.GuideWeb.Entity.TripEntity;
 import com.travelGuide.GuideWeb.Entity.UserEntity;
 import com.travelGuide.GuideWeb.Repository.BookingRepository;
@@ -42,5 +43,19 @@ public class BookingService {
         return bookingRepository.findByUser(user);
 
 
+    }
+
+    public Booking approveBookings(Long bookingId) {
+        Booking booking= bookingRepository.findById(bookingId).orElseThrow(() -> new RuntimeException("user not found"));
+
+       booking.setBookingStatus(Status.CONFIRMED);
+
+        return bookingRepository.save(booking);
+    }
+
+    public Booking rejectBooking(Long id) {
+        Booking booking = bookingRepository.findById(id).orElseThrow(() -> new RuntimeException("No bookings"));
+        booking.setBookingStatus(Status.CANCELLED);
+        return bookingRepository.save(booking);
     }
 }

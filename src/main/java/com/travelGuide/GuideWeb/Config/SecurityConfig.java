@@ -42,6 +42,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/trip/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT,"/trip/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE,"/trip/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT,"/booking/approved/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/booking/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 ).oauth2Login(oauth -> oauth
                 .successHandler(oAuth2SuccessHandler))

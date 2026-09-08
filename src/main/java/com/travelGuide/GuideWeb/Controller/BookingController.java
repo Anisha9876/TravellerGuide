@@ -2,6 +2,7 @@ package com.travelGuide.GuideWeb.Controller;
 
 import com.travelGuide.GuideWeb.Entity.Booking;
 import com.travelGuide.GuideWeb.Service.BookingService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,17 @@ public class BookingController {
         String email = authentication.getName();
         List<Booking> bookings = bookingService.getBookings(email);
         return bookings;
+    }
+    @PutMapping("/approved/{id}")
+    public ResponseEntity<String> approveBooking(@PathVariable Long id){
+
+        Booking booking = bookingService.approveBookings(id);
+        return ResponseEntity.ok().body("approved"+booking);
+    }
+    @PutMapping("/reject/{id}")
+    public ResponseEntity<String> rejectBooking(@PathVariable Long id){
+        Booking booking = bookingService.rejectBooking(id);
+        return ResponseEntity.ok("Cancelled or Rejected "+id);
     }
 
 }
