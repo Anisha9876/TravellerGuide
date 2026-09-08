@@ -3,6 +3,7 @@ package com.travelGuide.GuideWeb.Controller;
 import com.travelGuide.GuideWeb.DTO.ReviewDto;
 import com.travelGuide.GuideWeb.Entity.Review;
 import com.travelGuide.GuideWeb.Service.ReviewService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,8 @@ public class ReviewController {
        return reviewService.getAllReviews(id);
     }
     @PostMapping("/")
-    public Review review(@RequestBody ReviewDto review, Authentication authentication){
+    public Review review(@Valid @RequestBody ReviewDto review
+            , Authentication authentication){
         String email = authentication.getName();
         return reviewService.writeReview(review,email);
     }
