@@ -48,5 +48,10 @@ public class BookingController {
         Booking booking = bookingService.rejectBooking(id);
         return ResponseEntity.ok("Cancelled or Rejected "+id);
     }
+    @PutMapping("/pending/{id}")
+    public ResponseEntity<String> pendingBooking(@PathVariable Long id){
+        Booking booking = bookingService.pendingBooking(id);
+        return ResponseEntity.ok("Pending booking...");
+    }
 
 }

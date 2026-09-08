@@ -58,4 +58,9 @@ public class BookingService {
         booking.setBookingStatus(Status.CANCELLED);
         return bookingRepository.save(booking);
     }
+    public Booking pendingBooking(Long id){
+        Booking booking=bookingRepository.findById(id).orElseThrow(()->new RuntimeException("booking not found..."));
+        booking.setBookingStatus(Status.PENDING);
+        return bookingRepository.save(booking);
+    }
 }
