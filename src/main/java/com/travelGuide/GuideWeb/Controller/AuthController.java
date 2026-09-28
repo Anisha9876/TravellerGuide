@@ -2,6 +2,8 @@ package com.travelGuide.GuideWeb.Controller;
 
 import com.travelGuide.GuideWeb.DTO.LoginDto;
 import com.travelGuide.GuideWeb.DTO.UserDto;
+import com.travelGuide.GuideWeb.Entity.Enum.Role;
+import com.travelGuide.GuideWeb.Entity.UserEntity;
 import com.travelGuide.GuideWeb.Service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

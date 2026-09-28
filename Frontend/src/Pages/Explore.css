@@ -1,15 +1,12 @@
-
 .explore-page {
   min-height: 100vh;
-  padding: 40px 7%;
-  background: #f7f9fc;
+  padding: 60px 8%;
+  background: #f7f7f7;
 }
-
-/* Header */
 
 .explore-header {
   text-align: center;
-  margin-bottom: 35px;
+  margin-bottom: 40px;
 }
 
 .explore-header h1 {
@@ -18,136 +15,48 @@
 }
 
 .explore-header p {
-  color: #666;
+  color: #777;
   font-size: 17px;
 }
 
-
-/* Search */
-
-.trip-search {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 45px;
-}
-
-.trip-search input,
-.trip-search select {
-  padding: 14px 18px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 15px;
-  outline: none;
-}
-
-.trip-search input {
-  width: 280px;
-}
-
-.trip-search button {
-  padding: 14px 25px;
-  border: none;
-  border-radius: 8px;
-  background: #2563eb;
-  color: white;
-  cursor: pointer;
-  font-size: 15px;
-}
-
-
-/* Trip cards */
-
-.trip-section {
+.explore-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
 }
 
-.trip-card {
+.explore-card {
   background: white;
-  border-radius: 15px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-  transition: 0.3s;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
-.trip-card:hover {
-  transform: translateY(-6px);
-}
-
-.trip-card img {
+.explore-card img {
   width: 100%;
   height: 220px;
   object-fit: cover;
 }
 
-.trip-info {
+.explore-card-content {
   padding: 20px;
 }
 
-.trip-info h2 {
-  margin-bottom: 12px;
+.explore-card-content h2 {
+  margin-bottom: 15px;
 }
 
-.trip-info p {
+.explore-card-content p {
   color: #666;
   margin: 8px 0;
 }
 
-.trip-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.trip-bottom span {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.trip-bottom button {
+.explore-card-content button {
+  margin-top: 15px;
+  padding: 11px 20px;
   border: none;
-  background: #2563eb;
+  border-radius: 8px;
+  background: #ff6b35;
   color: white;
-  padding: 10px 15px;
-  border-radius: 7px;
   cursor: pointer;
-}
-
-
-/* Mobile */
-
-@media (max-width: 900px) {
-
-  .trip-section {
-    grid-template-columns: 1fr 1fr;
-  }
-
-}
-
-@media (max-width: 600px) {
-
-  .trip-section {
-    grid-template-columns: 1fr;
-  }
-
-  .trip-search {
-    flex-direction: column;
-  }
-
-  .trip-search input {
-    width: auto;
-  }
-
-}
-.view-button {
-  border: none;
-  background: #2563eb;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 7px;
-  cursor: pointer;
-  text-decoration: none;
 }

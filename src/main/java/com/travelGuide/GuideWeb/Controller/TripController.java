@@ -31,9 +31,12 @@ public class TripController {
         return trips;
     }
     @GetMapping("/id/{id}")
-    public ResponseEntity<Optional<TripEntity>> getById(@PathVariable Long id){
-        Optional<TripEntity> tripsById = service.getTripsById(id);
-        return ResponseEntity.ok().body(tripsById);
+    public ResponseEntity<TripEntity> getById(@PathVariable Long id) {
+
+        TripEntity trip = service.getTripsById(id)
+                .orElseThrow(() -> new RuntimeException("Trip not found"));
+
+        return ResponseEntity.ok(trip);
     }
     @GetMapping("/name/{name}")
     public ResponseEntity<TripDto> getByName(@PathVariable String name){

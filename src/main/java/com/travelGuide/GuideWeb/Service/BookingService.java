@@ -63,4 +63,18 @@ public class BookingService {
         booking.setBookingStatus(Status.PENDING);
         return bookingRepository.save(booking);
     }
+
+    public void cancelBooking(Long id, String email) {
+
+        Booking booking = bookingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Booking not found"));
+
+        if (!booking.getUser().getEmail().equals(email)) {
+            throw new RuntimeException("You cannot cancel this booking");
+        }
+
+        booking.setBookingStatus(Status.CANCELLED);
+
+        bookingRepository.save(booking);
+    }
 }

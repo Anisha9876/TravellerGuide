@@ -2,11 +2,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./Pages/Home";
-import Explore from "./Pages/Explore";
 import News from "./Pages/News";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import TripDetails from "./Pages/TripDetails";
+import Explore from "./Pages/Explore";
+import MyBookings from "./Pages/MyBookings";
 function App() {
   return (
     <BrowserRouter>
@@ -22,9 +23,10 @@ function App() {
 
         <Route path="/register" element={<Register />} />
 
-        <Route path="/trip-details" element={<TripDetails />} />
+        <Route path="/trip/:id" element={<TripDetails />} />
 
         <Route path="/trip-details/:destination" element={<TripDetails />} />
+        <Route path="/my-bookings" element={<MyBookings />} />
 
       </Routes>
     </BrowserRouter>

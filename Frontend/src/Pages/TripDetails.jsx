@@ -1,109 +1,95 @@
-
-import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import api from "../Services/api";
 import "./TripDetails.css";
 
 function TripDetails() {
 
-  const { destination } = useParams();
+  const { id } = useParams();
+  const [trip, setTrip] = useState(null);
 
-  const trips = {
-    manali: {
-      name: "Manali Adventure",
-      location: "Manali, Himachal Pradesh",
-      image:
-        "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=80",
-      description:
-        "Explore the beautiful mountains of Manali with adventure, nature and unforgettable experiences.",
-      duration: "5 Days / 4 Nights",
-      type: "Group",
-      pickup: "Delhi",
-      price: "₹8,999"
-    },
+  useEffect(() => {
+    const fetchTrip = async () => {
+      try {
+        const response = await api.get(`/trip/id/${id}`);
 
-    goa: {
-      name: "Goa Beach Escape",
-      location: "Goa",
-      image:
-        "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80",
-      description:
-        "Enjoy beautiful beaches, amazing sunsets and a relaxing getaway in Goa.",
-      duration: "4 Days / 3 Nights",
-      type: "Group",
-      pickup: "Bhubaneswar",
-      price: "₹6,499"
-    },
+        console.log("Trip details:", response.data);
 
-    rajasthan: {
-      name: "Royal Rajasthan",
-      location: "Rajasthan",
-      image:
-        "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1200&q=80",
-      description:
-        "Experience the royal culture, magnificent forts and rich history of Rajasthan.",
-      duration: "6 Days / 5 Nights",
-      type: "Group",
-      pickup: "Delhi",
-      price: "₹9,499"
-    }
-  };
+        setTrip(response.data);
+      } catch (error) {
+        console.error("Error fetching trip:", error);
+      }
+    };
 
-  const trip = trips[destination];
+    fetchTrip();
+  }, [id]);
 
   if (!trip) {
-    return <h1>Trip not found</h1>;
+    return <h2>Loading trip...</h2>;
   }
+  const handleBooking = async () => {
+  try {
+    const response = await api.post(`/booking/${id}`);
+
+    console.log("Booking:", response.data);
+
+    alert("Trip booked successfully!");
+
+  } catch (error) {
+    console.error("Booking error:", error.response?.data || error);
+    alert("Booking failed!");
+  }
+};
 
   return (
-    <div className="details-page">
+    <div className="trip-details-page">
 
-      <Link to="/explore" className="back-link">
-        ← Back to Explore
-      </Link>
+      <div className="trip-details-card">
 
-      <div className="details-card">
+        <h1>{trip.tripName}</h1>
 
-        <img src={trip.image} alt={trip.name} />
+        <p className="destination">
+          📍 {trip.destination}
+        </p>
 
-        <div className="details-content">
+        <div className="trip-info">
 
-          <h1>{trip.name}</h1>
-
-          <p className="location">
-            📍 {trip.location}
+          <p>
+            <strong>Pickup:</strong> {trip.pickUp}
           </p>
 
-          <p>{trip.description}</p>
+          <p>
+            <strong>Drop Location:</strong> {trip.dropLocation}
+          </p>
 
-          <div className="trip-details">
+          <p>
+            <strong>Duration:</strong> {trip.duration}
+          </p>
 
-            <div>
-              <strong>Duration</strong>
-              <span>{trip.duration}</span>
-            </div>
+          <p>
+            <strong>Travel Type:</strong> {trip.travelType}
+          </p>
 
-            <div>
-              <strong>Travel Type</strong>
-              <span>{trip.type}</span>
-            </div>
+          <p>
+            <strong>Available Seats:</strong> {trip.availableSit}
+          </p>
 
-            <div>
-              <strong>Pickup</strong>
-              <span>{trip.pickup}</span>
-            </div>
+          <p>
+            <strong>Contact:</strong> {trip.contact}
+          </p>
 
-            <div>
-              <strong>Price</strong>
-              <span>{trip.price}</span>
-            </div>
-
-          </div>
-
-          <button className="book-button">
-            Book This Trip
-          </button>
+          <h2 className="price">
+            ₹{trip.price}
+          </h2>
 
         </div>
+
+        <button
+  className="book-button"
+  onClick={handleBooking}
+>
+  Book This Trip
+</button>
 
       </div>
 
@@ -111,5 +97,4 @@ function TripDetails() {
   );
 }
 
-export default TripDetails;
-
+export default TripDetails; 

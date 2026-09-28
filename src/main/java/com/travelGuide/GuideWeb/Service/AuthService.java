@@ -3,6 +3,7 @@ package com.travelGuide.GuideWeb.Service;
 import com.travelGuide.GuideWeb.Config.SecurityConfig;
 import com.travelGuide.GuideWeb.DTO.LoginDto;
 import com.travelGuide.GuideWeb.DTO.UserDto;
+import com.travelGuide.GuideWeb.Entity.Enum.Role;
 import com.travelGuide.GuideWeb.Entity.UserEntity;
 import com.travelGuide.GuideWeb.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class AuthService {
          userEntity.setGender(dto.getGender());
          userEntity.setEmail(dto.getEmail());
          userEntity.setAddress(dto.getAddress());
-         userEntity.setRole(dto.getRole());
+         userEntity.setRole(Role.USER);
          userEntity.setPhone(dto.getPhone());
         repository.save(userEntity);
     }

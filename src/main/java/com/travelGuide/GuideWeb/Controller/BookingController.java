@@ -53,5 +53,14 @@ public class BookingController {
         Booking booking = bookingService.pendingBooking(id);
         return ResponseEntity.ok("Pending booking...");
     }
+    @PutMapping("/cancel/{id}")
+    public ResponseEntity<String> cancelBooking(
+            @PathVariable Long id,
+            Authentication authentication) {
+
+        bookingService.cancelBooking(id, authentication.getName());
+
+        return ResponseEntity.ok("Booking cancelled successfully");
+    }
 
 }
